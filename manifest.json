@@ -1,0 +1,19 @@
+{
+    "id": "app",
+    "name": "Hacker-diy",
+    "short_name": "Hacker-diy",
+    "description": "Hacker-diy",
+    "start_url": ".",
+    "display": "fullscreen",
+    "orientation": "portrait",
+    "theme_color": "#000000",
+    "background_color": "#000000",
+    "icons": [
+        {
+            "src": "./icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        }
+    ]
+}

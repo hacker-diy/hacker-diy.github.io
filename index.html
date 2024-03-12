@@ -239,7 +239,35 @@
 <script src="./jquery-3.6.0.min.js"></script>
 <script src="./jquery.cookie.js"></script>
 
-<script>	
+<script>
+$.cookie.json = true
+$.cookie.defaults.expires = 3650
+
+user_name = $.cookie('user_name')
+if (user_name == null) {
+	user_name = 'Magic Master'
+}
+
+forced_name = $.cookie('forced_name')
+if (forced_name == null) {
+	forced_name = '7♣'
+}
+
+working_mode = $.cookie('working_mode')
+if (working_mode == null) {
+	working_mode = 1
+}
+
+magic_delay = $.cookie('magic_delay')
+if (magic_delay == null) {
+	magic_delay = 3
+}
+
+wifi_networks = $.cookie('wifi_networks')
+if (wifi_networks == null) {
+	wifi_networks = ['wifi43', 'ZTE_2.4G_87cfdO', 'TP-LINK_F1BO', 'HUAWEI-48', 'iPhone 14', 'HUAWEI-A1-E67ECA-2.4']
+}
+
 if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("./sw.js");
 }
@@ -332,11 +360,7 @@ settings = [
 	]
 ]
 
-wifi_networks = ['wifi43', 'ZTE_2.4G_87cfdO', 'TP-LINK_F1BO', 'HUAWEI-48', 'iPhone 14', 'HUAWEI-A1-E67ECA-2.4']
-
 parent_screens = ['wifi', 'config']
-
-forced_name = '7♣'
 
 show_screen('settings')
 
@@ -344,64 +368,67 @@ build_wifi_screen()
 
 build_config_screen()
 
+build_settings_screen()
 
-var settings_title_text = 'Настройки'
-$('#settings').append($('<div class="settings_title">' + settings_title_text + '</div>'))
+function build_settings_screen() {
 
-
-var search_box_div = $('<div class="search_box"></div>')
-var search_box_text = 'Поиск'
-search_box_div.append($('<img class="search_icon" src="search_icon.png">'))
-search_box_div.append($('<div class="search_box_text">' + search_box_text + '</div>'))
-search_box_div.append($('<img class="voice_icon" src="voice_icon.png">'))
-$('#settings').append(search_box_div)
+	var settings_title_text = 'Настройки'
+	$('#settings').append($('<div class="settings_title">' + settings_title_text + '</div>'))
 
 
-var user_info_div = $('<div class="user_info"></div>')
-var user_avatar_div = $('<img class="user_avatar" src="default_user_avatar.png">')
-user_info_div.append(user_avatar_div)
-var user_info_text_div = $('<div class="user_info_text"></div>')
-
-var user_name = 'Magic Master'
-var user_name_div = $('<div class="user_name">' + user_name + '</div>')
-user_info_text_div.append(user_name_div)
-
-var user_services = 'Apple ID, iCloud, контент и покупки'
-var user_services_div = $('<div class="user_services">' + user_services + '</div>')
-user_info_text_div.append(user_services_div)
-
-user_info_div.append(user_info_text_div)
-user_info_div.append($('<div class="item_arrow" style="margin-left: auto"><img src="arrow.png"></div>'))
-$('#settings').append(user_info_div)
+	var search_box_div = $('<div class="search_box"></div>')
+	var search_box_text = 'Поиск'
+	search_box_div.append($('<img class="search_icon" src="search_icon.png">'))
+	search_box_div.append($('<div class="search_box_text">' + search_box_text + '</div>'))
+	search_box_div.append($('<img class="voice_icon" src="voice_icon.png">'))
+	$('#settings').append(search_box_div)
 
 
-settings.forEach(function (settings_group) {
-	var group_div = $('<div class="settings_group"></div>')
-	settings_group.forEach(function (item, index) {
-		var item_div = $('<div class="settings_item"></div>')
-		item_div.append($('<div class="item_icon"><img src="' + item.icon + '.png"></div>'))
-		item_div.append($('<div class="item_title">' + item.name + '</div>'))
-		var status_text = 'status_text' in item ? item.status_text : ''
-		item_div.append($('<div class="item_status_text">' + status_text + '</div>'))
-		
-		if ('switch' in item && item['switch'] == true) {
-			item_div.append($('<img class="item_switch" src="switch_off.png">'))
-		} else {
-			item_div.append($('<img class="item_arrow" src="arrow.png">'))
-		}
-		
-		if ('on_click' in item) {
-			item_div.click(function() { show_screen(item.on_click) })
-		}
-		
-		group_div.append(item_div)
-		if (index != settings_group.length - 1) {
-			var separator = $('<div class="separator"><div class="separator_offset"></div><div class="separator_line"></div></div>')
-			group_div.append(separator)
-		}
+	var user_info_div = $('<div class="user_info"></div>')
+	var user_avatar_div = $('<img class="user_avatar" src="default_user_avatar.png">')
+	user_info_div.append(user_avatar_div)
+	var user_info_text_div = $('<div class="user_info_text"></div>')
+
+	var user_name_div = $('<div class="user_name">' + user_name + '</div>')
+	user_info_text_div.append(user_name_div)
+
+	var user_services = 'Apple ID, iCloud, контент и покупки'
+	var user_services_div = $('<div class="user_services">' + user_services + '</div>')
+	user_info_text_div.append(user_services_div)
+
+	user_info_div.append(user_info_text_div)
+	user_info_div.append($('<div class="item_arrow" style="margin-left: auto"><img src="arrow.png"></div>'))
+	$('#settings').append(user_info_div)
+
+
+	settings.forEach(function (settings_group) {
+		var group_div = $('<div class="settings_group"></div>')
+		settings_group.forEach(function (item, index) {
+			var item_div = $('<div class="settings_item"></div>')
+			item_div.append($('<div class="item_icon"><img src="' + item.icon + '.png"></div>'))
+			item_div.append($('<div class="item_title">' + item.name + '</div>'))
+			var status_text = 'status_text' in item ? item.status_text : ''
+			item_div.append($('<div class="item_status_text">' + status_text + '</div>'))
+			
+			if ('switch' in item && item['switch'] == true) {
+				item_div.append($('<img class="item_switch" src="switch_off.png">'))
+			} else {
+				item_div.append($('<img class="item_arrow" src="arrow.png">'))
+			}
+			
+			if ('on_click' in item) {
+				item_div.click(function() { show_screen(item.on_click) })
+			}
+			
+			group_div.append(item_div)
+			if (index != settings_group.length - 1) {
+				var separator = $('<div class="separator"><div class="separator_offset"></div><div class="separator_line"></div></div>')
+				group_div.append(separator)
+			}
+		})
+		$('#settings').append(group_div)
 	})
-	$('#settings').append(group_div)
-})
+}
 
 function show_screen(screen_id) {
 	build_wifi_screen()
@@ -457,7 +484,7 @@ function build_wifi_screen() {
 
 function show_magic() {
 	console.log('Magic time!')
-	var delay = 2000
+	var delay = 1000 * magic_delay
 	setTimeout(function() { blink_screen(10) }, delay)
 	var wifi_networks = $('#wifi_networks > .settings_item')
 	for (var i = 0; i < 10; i++) {
@@ -522,7 +549,8 @@ function build_config_screen() {
 
 	var item_div = $('<div class="settings_item"></div>')
 	item_div.append($('<div class="item_without_icon_title">Имя пользователя</div>'))
-	item_div.append($('<div class="item_status_text">Magic Master</div>'))
+	item_div.append($('<div class="item_status_text">' + user_name + '</div>'))
+	item_div.click(function() { change_user_name() })
 	options_div.append(item_div)
 
 	options_div.append($('<div class="separator"><div class="separator_offset"></div><div class="separator_line"></div></div>'))
@@ -537,27 +565,30 @@ function build_config_screen() {
 	var item_div = $('<div class="settings_item"></div>')
 	item_div.append($('<div class="item_without_icon_title">Имя сети для подмены</div>'))
 	item_div.append($('<div class="item_status_text">' + forced_name + '</div>'))
+	item_div.click(function() { change_forced_name() })
 	options_div.append(item_div)
 
 	options_div.append($('<div class="separator"><div class="separator_offset"></div><div class="separator_line"></div></div>'))
 
 	var item_div = $('<div class="settings_item"></div>')
-	item_div.append($('<div class="item_without_icon_title">Режим</div>'))
-	item_div.append($('<div class="item_status_text">По касанию переключателя</div>'))
+	item_div.append($('<div class="item_without_icon_title">Режим работы</div>'))
+	item_div.append($('<div class="item_status_text">' + working_mode + '</div>'))
+	item_div.click(function() { change_working_mode() })
 	options_div.append(item_div)
 
 	options_div.append($('<div class="separator"><div class="separator_offset"></div><div class="separator_line"></div></div>'))
 
 	var item_div = $('<div class="settings_item"></div>')
 	item_div.append($('<div class="item_without_icon_title">Задержка в секундах</div>'))
-	item_div.append($('<div class="item_status_text">5</div>'))
+	item_div.append($('<div class="item_status_text">' + magic_delay + '</div>'))
+	item_div.click(function() { change_magic_delay() })
 	options_div.append(item_div)
 
 	$('#config').append(options_div)
 
 	var networks_div = $('<div class="settings_group"></div>')
-	for (var i = 1; i <= 10; i++) {
-		if (wifi_networks[i] != null) {
+	for (let i = 1; i <= 10; i++) {
+		if (wifi_networks[i - 1] != null) {
 			network_name = wifi_networks[i - 1]
 		} else {
 			network_name = ''
@@ -565,6 +596,8 @@ function build_config_screen() {
 		var item_div = $('<div class="settings_item"></div>')
 		item_div.append($('<div class="item_without_icon_title"> Сеть ' + i + '</div>'))
 		item_div.append($('<div class="item_status_text">' + network_name + '</div>'))
+		
+		item_div.click(function() { change_network_name(i - 1) })
 		
 		networks_div.append(item_div)
 		
@@ -574,6 +607,67 @@ function build_config_screen() {
 		}
 	}
 	$('#config').append(networks_div)
+}
+
+function change_user_name() {
+	var input = prompt('Имя пользователя:')
+	if (input == null) { return }
+	if (input != '') {
+		user_name = input
+		$.cookie('user_name', user_name)
+		build_config_screen()
+	} else {
+		alert('Вы ввели неверное значение.')
+	}
+	build_config_screen()
+	build_settings_screen()
+}
+
+function change_forced_name() {
+	var input = prompt('Имя сети для подмены:')
+	if (input == null) { return }
+	if (input != '') {
+		forced_name = input
+		$.cookie('forced_name', forced_name)
+		build_config_screen()	
+	} else {
+		alert('Вы ввели неверное значение.')
+	}
+	build_config_screen()
+}
+
+function change_working_mode() {
+	var input = prompt('Режим работы:')
+	if (input in [1, 2]) {
+		working_mode = input
+		$.cookie('working_mode', working_mode)
+		build_config_screen()	
+	} else {
+		alert('Вы ввели неверное значение. Допустимые: 1 или 2.')
+	}
+	build_config_screen()
+}
+
+function change_magic_delay() {
+	var input = prompt('Задержка в секундах:')
+	if (input == null) { return }
+	var magic_delay = Number(input)
+	if (!isNaN(magic_delay)) {
+		magic_delay = input
+		$.cookie('magic_delay', magic_delay)
+		build_config_screen()	
+	} else {
+		alert('Вы ввели неверное значение.')
+	}
+	build_config_screen()
+}
+
+function change_network_name(index) {
+	var input = prompt('Сеть ' + index + ':')
+	if (input == null) { return }
+	wifi_networks[index] = input
+	$.cookie('wifi_networks', wifi_networks)
+	build_config_screen()
 }
 
 </script>

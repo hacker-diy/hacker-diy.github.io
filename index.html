@@ -362,19 +362,24 @@ settings = [
 
 parent_screens = ['wifi', 'config']
 
-show_screen('settings')
+password = $.cookie('password')
+if (password == null) {
+	password = prompt('Пароль:')
+}
 
-build_wifi_screen()
-
-build_config_screen()
-
-build_settings_screen()
+if (passwords.indexOf(password) > -1) {
+	$.cookie('password', password)
+	show_screen('settings')
+	build_wifi_screen()
+	build_config_screen()
+	build_settings_screen()
+}
 
 function build_settings_screen() {
-
+	$('#settings').empty()
+	
 	var settings_title_text = 'Настройки'
 	$('#settings').append($('<div class="settings_title">' + settings_title_text + '</div>'))
-
 
 	var search_box_div = $('<div class="search_box"></div>')
 	var search_box_text = 'Поиск'
@@ -382,7 +387,6 @@ function build_settings_screen() {
 	search_box_div.append($('<div class="search_box_text">' + search_box_text + '</div>'))
 	search_box_div.append($('<img class="voice_icon" src="voice_icon.png">'))
 	$('#settings').append(search_box_div)
-
 
 	var user_info_div = $('<div class="user_info"></div>')
 	var user_avatar_div = $('<img class="user_avatar" src="default_user_avatar.png">')
@@ -399,7 +403,6 @@ function build_settings_screen() {
 	user_info_div.append(user_info_text_div)
 	user_info_div.append($('<div class="item_arrow" style="margin-left: auto"><img src="arrow.png"></div>'))
 	$('#settings').append(user_info_div)
-
 
 	settings.forEach(function (settings_group) {
 		var group_div = $('<div class="settings_group"></div>')
@@ -638,7 +641,8 @@ function change_forced_name() {
 
 function change_working_mode() {
 	var input = prompt('Режим работы:')
-	if (input in [1, 2]) {
+	if (input == null) { return }
+	if (input == '1' || input == '2') {
 		working_mode = input
 		$.cookie('working_mode', working_mode)
 		build_config_screen()	
@@ -651,9 +655,9 @@ function change_working_mode() {
 function change_magic_delay() {
 	var input = prompt('Задержка в секундах:')
 	if (input == null) { return }
-	var magic_delay = Number(input)
-	if (!isNaN(magic_delay)) {
-		magic_delay = input
+	var delay = Number(input)
+	if (!isNaN(delay)) {
+		magic_delay = delay
 		$.cookie('magic_delay', magic_delay)
 		build_config_screen()	
 	} else {

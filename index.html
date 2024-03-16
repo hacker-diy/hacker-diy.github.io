@@ -49,7 +49,7 @@
 		
 		.settings_group {
 			background: white;
-			margin: 40px;
+			margin: 70px 40px;
 			display: flex;
 			flex-direction: column;
 			border-radius: 20px;
@@ -139,7 +139,7 @@
 
 		.user_info {
 			background: white;
-			margin: 40px;
+			margin: 65px 40px;
 			display: flex;
 			flex-direction: row;
 			align-items: center;
@@ -228,7 +228,12 @@
 			margin-left: 20px;
 			margin-right: 42px;
 		}
-	
+		
+		.settings_group_title {
+			color: #5f5f65;
+			font-size: 28px;
+			margin: 0px 40px -50px 80px;
+		}
 	</style>
 </head>
 
@@ -246,6 +251,10 @@
 <script src="./jquery.cookie.js"></script>
 
 <script>
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("./sw.js");
+}
+
 $.cookie.json = true
 $.cookie.defaults.expires = 3650
 
@@ -274,11 +283,7 @@ if (wifi_networks == null) {
 	wifi_networks = ['wifi43', 'ZTE_2.4G_87cfdO', 'TP-LINK_F1BO', 'HUAWEI-48', 'iPhone 14', 'HUAWEI-A1-E67ECA-2.4']
 }
 
-if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("./sw.js");
-}
-
-passwords = ["7J9pR5","e3qF8G","4Ks7bT","H2r6yE","d9T5pX","L6f4RQ","x7B3eP","9A2sW8","Y5tN7k","3gP6jK","W4sL8D","j9K2dE","S7hN4F","6JfR9Q","D8s5mT","2hN7dF","R6f3gT","5DjP8K","P2kL6R","t9G4sB","7HkE3W","Q4fN9T","8DmJ3K","n6S2jF","K5dR9F","F3jS8H","4MkP6T","G7sD5R","r2K9jW","9XhF4B","E6tS3N","q7P2kT","3LmF9K","T8wR4F","5sJ9gK","H2kL6R","f3S8jW","7QpR4K","D6jS2T","8GfW5R","j3N8mF","M7sP4W","6DhR9F","F2rL6S","x9G3wR","5SjD8K","T3fM7R","9qE5rT","W4sL8D","2JfR7K","8DhT4G","3sM9pF","Q7wR2T","4kL6sR","J2dF9P","6GmH3T","H7jR5F","e2S8gK","9AqW3T","N6rJ4F","S3gK9R","5DpS7T","K8hW4F","2sM6jR","F9kR3T","7HfN2R","w3S8mT","8QjD4W","4PwS6R","T7rE2K","9XkS4F","J3hW7T","6fP9wR","R7dE2K","2HsR8F","s3N9mT","5QjP6R","T4wS8F","7LdR3K","K2rW9F","e6M4jT","9GhT5F","W3qS7K","4JdF8T","H7rP2W","5kS9jR","P3wR7F","8LgT2K","J5hW9F","2fN6pR","Q9jT4F","6LsW2K","r4H9fR","3qP7mT","F6dK8R","7QwS3F","4LjR9K","T8sM2F","2HdP7T","e5K9jR"]
+passwords = ["7J9pR5","e3qF8G","4Ks7bT","H2r6yE","d9T5pX","L6f4RQ","x7B3eP","9A2sW8","Y5tN7k","3gP6jK","W4sL8D","j9K2dE","S7hN4F","6JfR9Q","D8s5mT","2hN7dF","R6f3gT","5DjP8K","P2kL6R","t9G4sB","7HkE3W","Q4fN9T","8DmJ3K","n6S2jF","K5dR9F","F3jS8H","4MkP6T","G7sD5R","r2K9jW","9XhF4B","E6tS3N","q7P2kT","3LmF9K","T8wR4F","5sJ9gK","H2kL6R","f3S8jW","7QpR4K","D6jS2T","8GfW5R","j3N8mF","M7sP4W","6DhR9F","F2rL6S","x9G3wR","5SjD8K","T3fM7R","9qE5rT","W4sL8D","2JfR7K","8DhT4G","3sM9pF","Q7wR2T","4kL6sR","J2dF9P","6GmH3T","H7jR5F","e2S8gK","9AqW3T","N6rJ4F","S3gK9R","5DpS7T","K8hW4F","2sM6jR","F9kR3T","7HfN2R","w3S8mT","8QjD4W","4PwS6R","T7rE2K","9XkS4F","J3hW7T","6fP9wR","R7dE2K","2HsR8F","s3N9mT","5QjP6R","T4wS8F","7LdR3K","K2rW9F","e6M4jT","9GhT5F","W3qS7K","4JdF8T","H7rP2W","5kS9jR","P3wR7F","8LgT2K","J5hW9F","2fN6pR","Q9jT4F","6LsW2K","r4H9fR","3qP7mT","F6dK8R","7QwS3F","4LjR9K","T8sM2F","2HdP7T","e5K9jR", "developer"]
 
 settings = [
 	[
@@ -410,7 +415,7 @@ function build_settings_screen() {
 	user_info_div.append($('<div class="item_arrow" style="margin-left: auto"><img src="arrow.png"></div>'))
 	$('#settings').append(user_info_div)
 
-	settings.forEach(function (settings_group) {
+	settings.forEach(function (settings_group, i) {
 		var group_div = $('<div class="settings_group"></div>')
 		settings_group.forEach(function (item, index) {
 			var item_div = $('<div class="settings_item"></div>')
@@ -488,6 +493,9 @@ function build_wifi_screen() {
 			networks_div.append(separator)
 		}
 	})
+	
+	var group_title_div = $('<div class="settings_group_title">СЕТИ</div>')
+	$('#wifi').append(group_title_div)	
 	$('#wifi').append(networks_div)
 }
 

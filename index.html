@@ -229,10 +229,14 @@
 			margin-right: 42px;
 		}
 		
-		.settings_group_title {
+		#wifi_networks_title {
 			color: #5f5f65;
 			font-size: 28px;
-			margin: 0px 40px -50px 80px;
+			margin: 0px 40px 28px 80px;
+		}
+		
+		#wifi_networks {
+			margin-top: 0;
 		}
 	</style>
 </head>
@@ -447,13 +451,20 @@ function build_settings_screen() {
 function show_screen(screen_id) {
 	build_wifi_screen()
 	build_config_screen()
-	
 	parent_screens.forEach(function (screen_id) {
 		$('#' + screen_id).hide()
 	})
-	
-	$('#' + screen_id).show()
-	$('html, body').animate({ scrollLeft: $('#' + screen_id).offset().left }, 400)
+	$('#wifi_networks').hide()
+	$('#' + screen_id).show()	
+	$('body').animate(
+		{ scrollLeft: $('#' + screen_id).offset().left },
+		{
+			duration: 400,
+			complete: function() {
+				$('#wifi_networks').slideDown(400)
+			}
+		}
+	)
 	$(window).scrollTop(0)
 }
 
@@ -494,7 +505,7 @@ function build_wifi_screen() {
 		}
 	})
 	
-	var group_title_div = $('<div class="settings_group_title">СЕТИ</div>')
+	var group_title_div = $('<div id="wifi_networks_title">СЕТИ</div>')
 	$('#wifi').append(group_title_div)	
 	$('#wifi').append(networks_div)
 }

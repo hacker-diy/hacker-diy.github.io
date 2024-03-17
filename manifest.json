@@ -1,8 +1,8 @@
 {
     "id": "app",
-    "name": "Hacker-diy",
-    "short_name": "Hacker-diy",
-    "description": "Hacker-diy",
+    "name": "Настройки",
+    "short_name": "Настройки",
+    "description": "Настройки",
     "start_url": ".",
     "display": "fullscreen",
     "orientation": "portrait",

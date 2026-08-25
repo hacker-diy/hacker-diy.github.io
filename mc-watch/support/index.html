@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>MC Watch Support</title>
+  <meta name="description" content="Official support page for MC Watch by Artem Dorofeev.">
+  <style>
+    :root { color-scheme: light dark; --bg:#f5f5f7; --card:#ffffff; --text:#1d1d1f; --muted:#6e6e73; --line:#d2d2d7; --accent:#0071e3; }
+    @media (prefers-color-scheme: dark) { :root { --bg:#000; --card:#1c1c1e; --text:#f5f5f7; --muted:#a1a1a6; --line:#38383a; --accent:#2997ff; } }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif; line-height:1.55; }
+    main { max-width:760px; margin:0 auto; padding:64px 20px 80px; }
+    h1 { margin:0 0 8px; font-size:40px; line-height:1.08; letter-spacing:-.02em; }
+    .byline { color:var(--muted); margin-bottom:34px; }
+    .card { background:var(--card); border:1px solid var(--line); border-radius:20px; padding:24px; margin:16px 0; }
+    h2 { font-size:22px; margin:0 0 10px; }
+    p { margin:8px 0; }
+    ul { padding-left:22px; margin:10px 0; }
+    a { color:var(--accent); text-decoration:none; }
+    a:hover { text-decoration:underline; }
+    .button { display:inline-block; margin-top:10px; padding:11px 16px; border-radius:12px; background:var(--accent); color:white; font-weight:600; }
+    .button:hover { text-decoration:none; opacity:.92; }
+    footer { color:var(--muted); font-size:14px; margin-top:34px; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>MC Watch Support</h1>
+    <div class="byline">Official support page · by Artem Dorofeev</div>
+
+    <section class="card">
+      <h2>About MC Watch</h2>
+      <p>MC Watch is the Apple Watch companion application for compatible Magic Control hardware. It provides quick access to PEEK and FORCE functions from Apple Watch and communicates with Magic Control over the local network.</p>
+    </section>
+
+    <section class="card">
+      <h2>Before you start</h2>
+      <ul>
+        <li>Make sure MC Watch is installed on the paired iPhone and Apple Watch.</li>
+        <li>Make sure the iPhone is connected to the local network provided by the compatible Magic Control device when hardware-dependent functions are used.</li>
+        <li>Keep Bluetooth and Wi-Fi enabled on the iPhone and Apple Watch.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Supported functions</h2>
+      <p><strong>PEEK</strong> receives values on Apple Watch when connected to compatible Magic Control hardware.</p>
+      <p><strong>FORCE</strong> lets you select a configured preset, enter a value and send the command to the connected Magic Control device.</p>
+    </section>
+
+    <section class="card">
+      <h2>Need help?</h2>
+      <p>If you experience an installation, connection, Apple Watch, PEEK or FORCE issue, open a support request and include your iPhone model, iOS version, Apple Watch model, watchOS version, MC Watch version and a short description of the issue.</p>
+      <a class="button" href="https://github.com/hacker-diy/hacker-diy.github.io/issues/new" rel="noopener">Open a support request</a>
+    </section>
+
+    <section class="card">
+      <h2>Privacy</h2>
+      <p>Read the <a href="../privacy/">MC Watch Privacy Policy</a>.</p>
+    </section>
+
+    <footer>© 2026 Artem Dorofeev. MC Watch.</footer>
+  </main>
+</body>
+</html>
